@@ -1,7 +1,7 @@
 @echo off
 
 echo;
-echo  Running rootwin.cmd ver 1.0.0
+echo  Running rootwin.cmd ver 1.1
 echo;
 echo  #########################################
 echo  # Created by Laddge (@laddge on Github) #
@@ -15,9 +15,19 @@ if exist %utilman% goto MAIN
 if not exist %utilman% goto FAIL
 
 :MAIN
-echo  +---------------------+
-echo   0. Cancel
-echo   1. Get / Discard admin
+if exist %backup% (
+    echo  Backup found!
+    echo;
+    echo  +---------------------+
+    echo   0. Cancel
+    echo   1. Discard admin
+) else (
+    echo  Backup NOT found!
+    echo;
+    echo  +---------------------+
+    echo   0. Cancel
+    echo   1. Get admin
+)
 echo  +---------------------+
 
 :INPUT
@@ -28,12 +38,8 @@ if "%operation%"=="0" (
 ) else (
     if "%operation%"=="1" (
         if exist %backup% (
-            echo  Backup found!
-            echo;
             goto DISCARD
         ) else (
-            echo  Backup NOT found!
-            echo;
             goto GET
         )
     ) else (
